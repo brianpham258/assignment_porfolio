@@ -1,0 +1,147 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { styled } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
+
+import {
+  Toolbar,
+  IconButton,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+	ListSubheader
+} from "@mui/material";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open, drawerWidth }) => ({
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
+
+const MAIN_LIST_ITEMS = [
+	{
+		name: "dashboard",
+		label: "Dashboard",
+		icon: <DashboardIcon />,
+	},
+	{
+		name: "oders",
+		label: "Orders",
+		icon: <ShoppingCartIcon />,
+	},
+	{
+		name: "customers",
+		label: "Customers",
+		icon: <PeopleIcon />,
+	},
+	{
+		name: "reports",
+		label: "Reports",
+		icon: <BarChartIcon />,
+	},
+	{
+		name: "integrations",
+		label: "Intergrations",
+		icon: <LayersIcon />,
+	},
+];
+
+const SECONDARY_LIST_ITEMS = [
+	{
+		name: "current-month",
+		label: "Current month",
+		icon: <AssignmentIcon />,
+	},
+	{
+		name: "last-quater",
+		label: "Last quater",
+		icon: <AssignmentIcon />,
+	},
+	{
+		name: "year-end-sale",
+		label: "Year-end sale",
+		icon: <AssignmentIcon />,
+	},
+];
+
+export default function PageSideNav({ drawerWidth, open, onClick }) {
+  const renderMenuItem = (list) => {
+    return list.map((item) => (
+      <ListItem button key={item.name}>
+        <ListItemIcon>{item.icon}</ListItemIcon>
+        <ListItemText primary={item.label} />
+      </ListItem>
+    ));
+  };
+
+  return (
+    <Drawer variant="permanent" open={open} drawerWidth={drawerWidth}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          px: [1],
+        }}
+      >
+        <IconButton onClick={onClick}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </Toolbar>
+      <Divider />
+      <List>
+        <div>{renderMenuItem(MAIN_LIST_ITEMS)}</div>
+      </List>
+      <Divider />
+			<List>
+				<div>
+					<ListSubheader inset>Saved reports</ListSubheader>
+					{renderMenuItem(SECONDARY_LIST_ITEMS)}
+				</div>
+			</List>
+    </Drawer>
+  );
+}
+
+PageSideNav.propTypes = {
+	drawerWidth: PropTypes.number,
+	open: PropTypes.bool,
+
+	onClick: PropTypes.func
+};
+
+PageSideNav.defaultProps = {
+	drawerWidth: 240,
+	open: false,
+
+	onClick: () => {}
+};
