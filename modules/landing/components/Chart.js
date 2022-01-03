@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import Title from "./TItle";
+import { Title } from "@core/title";
 
 // Generate Sales Data
 const createData = (time, amount) => {

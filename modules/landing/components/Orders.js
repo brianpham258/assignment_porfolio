@@ -1,16 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Typography,
-} from "@mui/material";
+import { TableRow, TableCell, Button } from "@mui/material";
 
-import Title from "./Title";
+import { BasicTable } from "@core/table";
+import { Title } from "@core/title";
 
 const TABLE_HEAD = [
   {
@@ -34,44 +27,40 @@ const TABLE_HEAD = [
 ];
 
 export default function Orders({ orders }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <>
       <Title>Recent Orders</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            {TABLE_HEAD.map((item) => (
-              <TableCell key={item} {...item?.style}>
-                {item.label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <div style={{ overflow: "hidden", maxHeight: isExpanded ? "100%" : 200 }}>
+        <BasicTable size="small" tableHead={TABLE_HEAD}>
           {orders.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.date}</TableCell>
               <TableCell>{item.name}</TableCell>
-              <TableCell>{item.shipTo}</TableCell>
-              <TableCell>{item.paymentMethod}</TableCell>
+              <TableCell>{item.ship_to}</TableCell>
+              <TableCell>{item.payment_method}</TableCell>
               <TableCell align="right">{`${item.amount}`}</TableCell>
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
-      <Link href="#" onClick={(e) => e.preventDefault()}>
-        <a>
-          <Typography color="primary" sx={{ mt: 3 }}>See more orders</Typography>
-        </a>
-      </Link>
+        </BasicTable>
+      </div>
+
+      <Button
+        color="primary"
+        sx={{ mt: 3 }}
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        {isExpanded ? "See less" : "See more orders"}
+      </Button>
     </>
   );
 }
 
 Orders.propTypes = {
-	orders: PropTypes.array
+  orders: PropTypes.array,
 };
 
 Orders.defaultProps = {
-	orders: []
+  orders: [],
 };

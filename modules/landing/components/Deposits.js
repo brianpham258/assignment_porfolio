@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Typography } from "@mui/material";
 
-import Title from "./Title";
+import { Title } from "@core/title";
 
 export default function Deposits() {
   return (

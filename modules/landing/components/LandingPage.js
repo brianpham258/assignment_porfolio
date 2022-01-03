@@ -5,6 +5,7 @@ import { Toolbar, Container, Grid, Paper } from "@mui/material";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import OrdersContainer from "../containers/OrdersContainer";
+import DataGridOrdersContainer from "../containers/DataGridOrdersContainer";
 
 export default function LandingPage() {
   return (
@@ -41,6 +42,12 @@ export default function LandingPage() {
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <OrdersContainer />
+            </Paper>
+          </Grid>
+
+					<Grid item xs={12}>
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <DataGridOrdersContainer />
             </Paper>
           </Grid>
         </Grid>
