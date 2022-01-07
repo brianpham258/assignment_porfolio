@@ -7,7 +7,8 @@
                 "root": ["./"],
                 "alias": {
                     "@core": "./modules/core",
-                    "@landing": "./modules/landing"
+                    "@landing": "./modules/landing",
+                    "@students": "./modules/students"
                 }
             }
         ]

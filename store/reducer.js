@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
-import landingReducer from "@landing/reducer";
+import studentList from '@students/reducer';
 
 const combinedReducer = combineReducers({
-  landing: landingReducer
+	students: studentList
 });
 
 const reducer = (state, action) => {

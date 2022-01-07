@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { PageLayout } from '@core/layout';
-import { LandingPage } from '@landing';
+import { PageLayout } from '@core/features';
+import { LandingPage } from '@landing/features';
 
 export default function HomePage() {
   return (

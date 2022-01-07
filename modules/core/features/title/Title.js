@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
 
-export default function Title({ children }) {
+export default function Title({ children, variant }) {
   return (
-    <Typography component="h1" variant="h6" color="primary" gutterBottom>
+    <Typography variant={variant} color="primary" gutterBottom>
       {children}
     </Typography>
   );
@@ -12,8 +12,10 @@ export default function Title({ children }) {
 
 Title.propTypes = {
   children: PropTypes.any,
+  variant: PropTypes.string
 };
 
 Title.defaultProps = {
   children: undefined,
+  variant: 'h3'
 };
