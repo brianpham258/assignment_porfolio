@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
+import { FormattedMessage } from 'react-intl';
+
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 
@@ -14,10 +17,6 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -49,17 +48,22 @@ const MAIN_LIST_ITEMS = [
   {
     name: "dashboard",
     label: "Dashboard",
-    icon: <DashboardIcon />
-  }
+    icon: <DashboardIcon />,
+    url: "/",
+  },
 ];
 
 export default function PageSideNav({ drawerWidth, open, onClick }) {
   const renderMenuItem = (list) => {
-    return list.map((item) => (
-      <ListItem button key={item.name}>
-        <ListItemIcon>{item.icon}</ListItemIcon>
-        <ListItemText primary={item.label} />
-      </ListItem>
+    return list.map((item, index) => (
+      <Link key={index} href={item.url}>
+        <a>
+          <ListItem button>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={<FormattedMessage id={`layout.side_nav.${item.name}`} />} />
+          </ListItem>
+        </a>
+      </Link>
     ));
   };
 

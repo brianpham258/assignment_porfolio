@@ -8,7 +8,6 @@ const sliceName = "studentList";
 
 const INITIAL_STATE = {
   students: [],
-  filteredStudents: null,
   loading: false,
   error: null,
 };
@@ -21,8 +20,8 @@ const slice = createSlice({
   name: sliceName,
   initialState: INITIAL_STATE,
   reducers: {
-    setFilteredStudents: (state, { payload }) => {
-      state.filteredStudents = payload;
+    updateStudents: (state, { payload }) => {
+      state.students = payload;
     }
   },
   extraReducers: {
@@ -40,7 +39,7 @@ const slice = createSlice({
   },
 });
 
-const { setFilteredStudents } = slice.actions;
-export { setFilteredStudents };
+const { updateStudents } = slice.actions;
+export { updateStudents };
 
 export default slice.reducer;

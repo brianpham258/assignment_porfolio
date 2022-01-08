@@ -14,17 +14,13 @@ export default function useStudentListServices() {
 
   // getter
   const getStudents = (state) => state.students.studentList.students;
-  const getFilteredStudents = (state) =>
-    state.students.studentList.filteredStudents;
 
   // setter
-  const setFilteredStudents = (studentList) =>
-    dispatch(actions.setFilteredStudents(studentList));
+  const updateStudents = (studentList) => dispatch(actions.updateStudents(studentList));
 
   return {
     fetchStudents,
     getStudents,
-    getFilteredStudents,
-    setFilteredStudents,
+    updateStudents
   };
 }

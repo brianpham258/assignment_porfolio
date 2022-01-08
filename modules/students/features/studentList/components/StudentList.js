@@ -1,27 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from 'react-intl';
 
 import { TextField } from "@mui/material";
 
 import { Title } from "@core/features";
 
-import StudentCard from "../../studentCard/components/StudentCard";
+import StudentCardContainer from "../../studentCard/containers/StudentCardContainer";
 
-export default function StudentList({ students, onFilter }) {
+export default function StudentList({ students, onFilterByName, onFilterByTag }) {
   return (
     <>
-      <Title>Students List</Title>
+      <Title><FormattedMessage id="students.student_list" /></Title>
       <TextField
         id="student-search"
-        label="Search by name"
+        className="mb-16"
+        label={<FormattedMessage id="students.name_search" />}
         type="search"
         variant="standard"
-        style={{ marginBottom: 15 }}
-        onChange={e => onFilter(e.target.value)}
+        onChange={e => onFilterByName(e.target.value)}
+      />
+      <TextField
+        id="student-search"
+        className="mb-16"
+        label={<FormattedMessage id="students.tag_search" />}
+        type="search"
+        variant="standard"
+        onChange={e => onFilterByTag(e.target.value)}
       />
       {students.map((item, index) => (
         <div key={index} style={{ margin: "10px 0" }}>
-          <StudentCard student={item} />
+          <StudentCardContainer studentList={students} student={item} />
         </div>
       ))}
     </>
@@ -29,11 +38,13 @@ export default function StudentList({ students, onFilter }) {
 }
 
 StudentList.propTypes = {
-  students: PropTypes.array,
-  onFilter: PropTypes.func
+  students: PropTypes.array.isRequired,
+
+  onFilterByName: PropTypes.func,
+  onFilterByTag: PropTypes.func
 };
 
 StudentList.defaultProps = {
-  students: [],
-  onFilter: () => {}
+  onFilterByName: () => {},
+  onFilterByTag: () => {}
 };

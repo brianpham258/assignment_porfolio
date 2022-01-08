@@ -1,9 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
+import core from "@core/reducer";
 import studentList from '@students/reducer';
 
 const combinedReducer = combineReducers({
+	core,
 	students: studentList
 });
 

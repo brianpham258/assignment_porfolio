@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
@@ -6,14 +6,13 @@ import { FormattedMessage } from "react-intl";
 import {
   Grid,
   Avatar,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   TextField,
   Stack,
   Chip,
+  Card,
+  CardContent,
+	IconButton
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const StyledGrid = styled(Grid)`
   font-family: "Raleway", sans-serif;
@@ -35,7 +34,8 @@ const StyledStudentInfo = styled.div`
   font-weight: 400;
 `;
 
-export default function StudentCard({ student, onKeyDown, onDeleteTag }) {
+export default function StudentCardV2({ student, onKeyDown, onDeleteTag }) {
+	const [tests, setTests] = useState(undefined);
   const { id, firstName, lastName, email, company, skill, grades, pic, tags } =
     student;
   const studentName = `${firstName} ${lastName}`;
@@ -43,14 +43,14 @@ export default function StudentCard({ student, onKeyDown, onDeleteTag }) {
   const studentAvg = totalGrade / grades.length;
 
   const renderTests = () => (
-    <>
+    <div className="mt-16">
       {grades.map((grade, index) => (
         <div key={index}>
           <FormattedMessage id="students.student_info.test" /> {index + 1}{" "}
           <span className="ml-16">{grade}%</span>
         </div>
       ))}
-    </>
+    </div>
   );
 
   const renderTags = () => (
@@ -61,18 +61,26 @@ export default function StudentCard({ student, onKeyDown, onDeleteTag }) {
     </>
   );
 
+	const handleExpand = () => {
+		if (!tests) {
+			setTests(renderTests());
+		} else {
+			setTests(undefined);
+		}
+	};
+
   return (
-    <Accordion style={{ borderRadius: 15 }}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Card style={{ borderRadius: 20 }}>
+      <CardContent>
         <StyledGrid spacing={2}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={11} md={3}>
             <StyledAvatar
               alt={studentName}
               src={pic}
               sx={{ width: 130, height: 130, marginTop: 3 }}
             />
           </Grid>
-          <Grid item xs={12} md={9} style={{ width: "100%" }}>
+          <Grid item xs={12} md={8}>
             <StyledStudentName>{studentName.toUpperCase()}</StyledStudentName>
             <StyledStudentInfo>
               <div>
@@ -90,6 +98,8 @@ export default function StudentCard({ student, onKeyDown, onDeleteTag }) {
                 {studentAvg}%
               </div>
 
+							{tests}
+
               <Stack direction="row" spacing={1} style={{ padding: "10px 0" }}>
                 {renderTags()}
               </Stack>
@@ -102,28 +112,23 @@ export default function StudentCard({ student, onKeyDown, onDeleteTag }) {
               />
             </StyledStudentInfo>
           </Grid>
+					<Grid item xs={1}>
+						<IconButton onClick={handleExpand} style={{ fontSize: '3em' }}>{tests ? '-' : '+'}</IconButton>
+					</Grid>
         </StyledGrid>
-      </AccordionSummary>
-      <AccordionDetails>
-        <StyledGrid spacing={2}>
-          <Grid item xs={12} md={3} />
-          <Grid item xs={12} md={9}>
-            <StyledStudentInfo>{renderTests()}</StyledStudentInfo>
-          </Grid>
-        </StyledGrid>
-      </AccordionDetails>
-    </Accordion>
+      </CardContent>
+    </Card>
   );
 }
 
-StudentCard.propTypes = {
+StudentCardV2.propTypes = {
   student: PropTypes.object.isRequired,
 
   onKeyDown: PropTypes.func,
   onDeleteTag: PropTypes.func,
 };
 
-StudentCard.defaultProps = {
+StudentCardV2.defaultProps = {
   onKeyDown: () => {},
   onDeleteTag: () => {},
 };

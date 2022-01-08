@@ -11,7 +11,7 @@ export default function LandingPage() {
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3} justifyContent="center">
 					<Grid item xs={10}>
-            <Paper sx={{ p: 3, display: "flex", flexDirection: "column" }}>
+            <Paper sx={{ p: 3, display: "flex", flexDirection: "column", borderRadius: 5 }}>
 							<StudentListContainer />
             </Paper>
           </Grid>
